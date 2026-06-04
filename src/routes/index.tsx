@@ -82,6 +82,12 @@ function HomePage() {
           className="absolute inset-0"
           style={{ background: "radial-gradient(ellipse at center, rgba(26,13,5,0) 0%, rgba(26,13,5,0.55) 100%)" }}
         />
+        {/* Fade hero into next section */}
+        <div
+          className="absolute left-0 right-0 bottom-0 h-48 pointer-events-none"
+          style={{ background: "linear-gradient(to bottom, rgba(26,13,5,0) 0%, var(--ink) 70%, var(--cream) 100%)" }}
+        />
+
 
         {/* Audio toggle */}
         <button
@@ -124,7 +130,8 @@ function HomePage() {
       </section>
 
       {/* INTRO */}
-      <section className="section-pad" style={{ background: "var(--cream)" }}>
+      <section className="section-pad" style={{ background: "linear-gradient(to bottom, var(--ink) 0%, var(--cream) 14%, var(--cream) 82%, var(--cocoa) 100%)" }}>
+
         <div className="container-x">
           <Reveal>
             <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>An invitation</p>
@@ -169,7 +176,7 @@ function HomePage() {
       </section>
 
       {/* SERVICES */}
-      <section className="section-pad" style={{ background: "var(--cocoa)", color: "var(--cream)" }}>
+      <section className="section-pad" style={{ background: "linear-gradient(to bottom, var(--cream) 0%, var(--cocoa) 14%, var(--cocoa) 82%, var(--cream) 100%)", color: "var(--cream)" }}>
         <div className="container-x">
           <Reveal>
             <p className="eyebrow" style={{ color: "var(--gold-light)" }}>What we offer</p>
@@ -203,7 +210,7 @@ function HomePage() {
       </section>
 
       {/* MENU HIGHLIGHTS */}
-      <section className="section-pad" style={{ background: "var(--cream)" }}>
+      <section className="section-pad" style={{ background: "linear-gradient(to bottom, var(--cocoa) 0%, var(--cream) 14%, var(--cream) 82%, var(--ink) 100%)" }}>
         <div className="container-x">
           <Reveal>
             <p className="eyebrow" style={{ color: "var(--gold)" }}>From our kitchen</p>
@@ -245,7 +252,7 @@ function HomePage() {
       </section>
 
       {/* AWARDS / MARQUEE */}
-      <section className="overflow-hidden py-10" style={{ background: "var(--ink)", color: "var(--cream)" }}>
+      <section className="overflow-hidden py-10" style={{ background: "linear-gradient(to bottom, var(--cream) 0%, var(--ink) 35%, var(--ink) 65%, var(--cocoa) 100%)", color: "var(--cream)" }}>
         <div className="marquee-track flex gap-12 whitespace-nowrap" style={{ width: "max-content" }}>
           {[...honors, ...honors, ...honors].map((h, i) => (
             <span key={i} className="eyebrow opacity-80 flex items-center gap-12">
@@ -257,7 +264,7 @@ function HomePage() {
       </section>
 
       {/* TESTIMONIAL */}
-      <section className="section-pad" style={{ background: "var(--cocoa)" }}>
+      <section className="section-pad" style={{ background: "linear-gradient(to bottom, var(--ink) 0%, var(--cocoa) 14%, var(--cocoa) 78%, var(--gold) 100%)" }}>
         <div className="container-x max-w-4xl text-center">
           <Reveal>
             <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Kind words</p>
@@ -282,7 +289,7 @@ function HomePage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="section-pad" style={{ background: "var(--gold)" }}>
+      <section className="section-pad" style={{ background: "linear-gradient(to bottom, var(--cocoa) 0%, var(--gold) 14%, var(--gold) 78%, var(--ink) 100%)" }}>
         <div className="container-x max-w-3xl text-center">
           <Reveal>
             <h2
