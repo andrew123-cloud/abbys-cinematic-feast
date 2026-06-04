@@ -283,7 +283,7 @@ function HomePage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="section-pad" style={{ background: "var(--gold)" }}>
+      <section className="section-pad" style={{ background: "linear-gradient(to bottom, var(--cocoa) 0%, var(--gold) 14%, var(--gold) 78%, var(--ink) 100%)" }}>
         <div className="container-x max-w-3xl text-center">
           <Reveal>
             <h2
