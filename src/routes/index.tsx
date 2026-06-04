@@ -82,6 +82,12 @@ function HomePage() {
           className="absolute inset-0"
           style={{ background: "radial-gradient(ellipse at center, rgba(26,13,5,0) 0%, rgba(26,13,5,0.55) 100%)" }}
         />
+        {/* Fade hero into next section */}
+        <div
+          className="absolute left-0 right-0 bottom-0 h-48 pointer-events-none"
+          style={{ background: "linear-gradient(to bottom, rgba(26,13,5,0) 0%, var(--ink) 70%, var(--cream) 100%)" }}
+        />
+
 
         {/* Audio toggle */}
         <button
