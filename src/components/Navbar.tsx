@@ -2,10 +2,11 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "#restaurant", label: "The Restaurant" },
-  { href: "#menu", label: "Menu & Wines" },
-  { href: "#team", label: "Our Team" },
-  { href: "#reserve", label: "Reserve" },
+  { href: "#about", label: "About" },
+  { href: "#services", label: "Services" },
+  { href: "#vision", label: "Vision" },
+  { href: "#credentials", label: "Credentials" },
+  { href: "#contact", label: "Contact" },
 ] as const;
 
 export function Navbar() {
@@ -50,7 +51,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-4">
             <a
-              href="#reserve"
+              href="#contact"
               className="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-[11px] uppercase tracking-[0.32em] transition-all duration-300"
               style={{
                 border: "1px solid var(--cream)",
@@ -60,7 +61,7 @@ export function Navbar() {
               onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 20px rgba(232,196,106,0.6)"; e.currentTarget.style.borderColor = "var(--gold-light)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "var(--cream)"; }}
             >
-              Book Now
+              Request Quote
             </a>
             <button
               aria-label="Open menu"
@@ -100,8 +101,8 @@ export function Navbar() {
               {l.label}
             </a>
           ))}
-          <a href="#reserve" onClick={() => setOpen(false)} className="btn-gold mt-6 self-start">
-            Book Now
+          <a href="#contact" onClick={() => setOpen(false)} className="btn-gold mt-6 self-start">
+            Request Quote
           </a>
         </nav>
       </div>
