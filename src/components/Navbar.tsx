@@ -1,69 +1,67 @@
-import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const links = [
-  { to: "/", label: "Home" },
-  { to: "/menu", label: "Menu" },
-  { to: "/experience", label: "Experience" },
-  { to: "/team", label: "Team" },
-  { to: "/contact", label: "Contact" },
+  { href: "#restaurant", label: "The Restaurant" },
+  { href: "#menu", label: "Menu & Wines" },
+  { href: "#team", label: "Our Team" },
+  { href: "#reserve", label: "Reserve" },
 ] as const;
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const { location } = useRouterState();
-  const isHome = location.pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setOpen(false); }, [location.pathname]);
-
-  const solid = scrolled || !isHome;
-
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          backgroundColor: solid ? "var(--cocoa)" : "transparent",
-          boxShadow: solid ? "0 1px 0 rgba(245,237,203,0.06)" : "none",
+          backgroundColor: scrolled ? "rgba(59, 31, 11, 0.92)" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(201, 150, 58, 0.35)" : "1px solid transparent",
         }}
       >
-        <div className="container-x flex items-center justify-between" style={{ height: solid ? 68 : 84 }}>
-          <Link to="/" className="font-display italic text-cream text-2xl md:text-3xl tracking-wide" style={{ color: "var(--cream)" }}>
+        <div className="container-x flex items-center justify-between" style={{ height: scrolled ? 70 : 92 }}>
+          <a href="#top" className="font-display italic text-2xl md:text-3xl tracking-wide" style={{ color: "var(--cream)" }}>
             Abby&rsquo;s
-          </Link>
+          </a>
 
           <nav className="hidden lg:flex items-center gap-10">
             {links.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className="eyebrow transition-colors duration-300"
+              <a
+                key={l.href}
+                href={l.href}
+                className="eyebrow transition-colors duration-300 hover:text-[var(--gold-light)]"
                 style={{ color: "var(--cream)" }}
-                activeProps={{ style: { color: "var(--gold-light)" } }}
-                activeOptions={{ exact: l.to === "/" }}
               >
                 {l.label}
-              </Link>
+              </a>
             ))}
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link
-              to="/contact"
-              className="hidden md:inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.25em] transition-colors duration-300"
-              style={{ background: "var(--gold)", color: "var(--cocoa)" }}
+            <a
+              href="#reserve"
+              className="hidden md:inline-flex items-center justify-center px-5 py-2.5 text-[11px] uppercase tracking-[0.32em] transition-all duration-300"
+              style={{
+                border: "1px solid var(--cream)",
+                color: "var(--gold-light)",
+                fontFamily: "var(--font-nav)",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 0 20px rgba(232,196,106,0.6)"; e.currentTarget.style.borderColor = "var(--gold-light)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "var(--cream)"; }}
             >
               Book Now
-            </Link>
+            </a>
             <button
               aria-label="Open menu"
               className="lg:hidden p-2"
@@ -76,7 +74,6 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* Mobile menu */}
       <div
         className="fixed inset-0 z-[60] transition-opacity duration-300"
         style={{
@@ -85,7 +82,7 @@ export function Navbar() {
           pointerEvents: open ? "auto" : "none",
         }}
       >
-        <div className="container-x flex items-center justify-between h-[84px]">
+        <div className="container-x flex items-center justify-between h-[92px]">
           <span className="font-display italic text-2xl" style={{ color: "var(--cream)" }}>Abby&rsquo;s</span>
           <button aria-label="Close menu" onClick={() => setOpen(false)} style={{ color: "var(--cream)" }}>
             <X size={22} />
@@ -93,23 +90,19 @@ export function Navbar() {
         </div>
         <nav className="container-x mt-16 flex flex-col gap-8">
           {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="font-display text-4xl"
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="font-display text-4xl italic"
               style={{ color: "var(--cream)" }}
-              activeProps={{ style: { color: "var(--gold-light)" } }}
-              activeOptions={{ exact: l.to === "/" }}
             >
               {l.label}
-            </Link>
+            </a>
           ))}
-          <Link
-            to="/contact"
-            className="btn-gold mt-6 self-start"
-          >
+          <a href="#reserve" onClick={() => setOpen(false)} className="btn-gold mt-6 self-start">
             Book Now
-          </Link>
+          </a>
         </nav>
       </div>
     </>
