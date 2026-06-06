@@ -405,6 +405,28 @@ function HomePage() {
               />
               <button type="submit" className="btn-gold">Request Quote</button>
             </form>
+
+            <div className="mt-20 grid sm:grid-cols-3 gap-8 text-left max-w-3xl mx-auto pt-12" style={{ borderTop: "1px solid rgba(240,232,192,0.2)" }}>
+              <div>
+                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Registered Office</p>
+                <p className="mt-4 leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.9 }}>
+                  Plot No.362 Makenya Street<br/>Regent Estate, Mikocheni<br/>P.O. Box 25187<br/>Dar es Salaam, Tanzania
+                </p>
+              </div>
+              <div>
+                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Phone</p>
+                <p className="mt-4 leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.9 }}>
+                  +255 (0) 764 512254<br/>+255 (0) 784 447335
+                </p>
+              </div>
+              <div>
+                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Email & Web</p>
+                <p className="mt-4 leading-relaxed text-sm break-words" style={{ color: "var(--cream)", opacity: 0.9 }}>
+                  abbys.caterers@gmail.com<br/>orders@abbys.co.tz<br/>
+                  <span style={{ color: "var(--gold-light)" }}>www.abbys.co.tz</span>
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
