@@ -252,6 +252,105 @@ function HomePage() {
         </div>
       </section>
 
+      {/* OUR STRENGTH */}
+      <section id="strength" className="section-pad" style={{ background: "var(--bg)" }}>
+        <div className="container-x">
+          <Reveal>
+            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Our Strength</p>
+            <h2 className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", color: "var(--cream)", lineHeight: 1.1 }}>
+              Our People, <em className="italic" style={{ color: "var(--gold-light)" }}>Our Strength</em>
+            </h2>
+            <span className="gold-rule mx-auto mt-8" />
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 gap-10 mt-20 max-w-5xl mx-auto">
+            {[
+              { eyebrow: "Our Employees", title: "The hands behind every plate", body: "Our people contribute at every level of operations and are rewarded according to their performance and team achievement. Directors and management are accomplished entrepreneurs, business experts and chefs with extensive experience across hotels, fine dining and industrial sites — supported by qualified technicians in plumbing, electrical, civil, mechanical and maintenance disciplines." },
+              { eyebrow: "Management Philosophy", title: "Competence at every level", body: "We ensure a high level of technical competence and accountability across the organisation. Our fully Integrated Management System — ISO 22000:2018 and ISO 9001:2015 — streamlines operations while enhancing customer satisfaction and sustainability." },
+              { eyebrow: "Culinary Experience", title: "Unique. Personalised. Engaged.", body: "Our culinary experiences are crafted to allow customers to fully engage — from menu design to the final plate. Senior chefs deliver exceptional experiences while mentoring the next generation of culinary talent." },
+              { eyebrow: "High-Quality Produce", title: "Sourced with intention", body: "We are meticulous about sourcing produce, partnering only with verified, reputable suppliers. Quality control is monitored at every step of our operations — from raw material to delivery." },
+            ].map((c, i) => (
+              <Reveal key={c.title} delay={i * 100}>
+                <div className="p-10 h-full" style={{ background: "var(--cocoa)", border: "1px solid rgba(201,150,58,0.25)" }}>
+                  <p className="eyebrow" style={{ color: "var(--gold-light)" }}>{c.eyebrow}</p>
+                  <h3 className="font-display italic mt-4" style={{ color: "var(--cream)", fontSize: "1.75rem", lineHeight: 1.2 }}>{c.title}</h3>
+                  <p className="mt-5 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.82 }}>{c.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GUIDING PRINCIPLES */}
+      <section id="principles" className="section-pad diag-lines" style={{ background: "var(--cocoa)" }}>
+        <div className="container-x">
+          <Reveal>
+            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Our Guiding Principles</p>
+            <h2 className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", color: "var(--cream)", lineHeight: 1.1 }}>
+              How We <em className="italic" style={{ color: "var(--gold-light)" }}>Operate</em>
+            </h2>
+            <span className="gold-rule mx-auto mt-8" />
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-8 mt-20">
+            {[
+              { n: "01", title: "Consistent Delivery", body: "Long-term catering solutions that fulfil the needs of our clients and their workforce. We earn loyalty by consistently demonstrating quality, service, value and innovation — relentlessly driving to remain affordable." },
+              { n: "02", title: "Developing Our People", body: "We invest in our personnel to ensure the continuing success of the business. Our training procedures equip every team member with the understanding to conform to our Management Systems and Policy Statements." },
+              { n: "03", title: "Profitable Growth", body: "Disciplined, sustainable, environmentally responsible growth — underpinned by strong management. Important for long-term success of the business and the communities we serve." },
+            ].map((p, i) => (
+              <Reveal key={p.n} delay={i * 120}>
+                <div className="p-8 h-full" style={{ background: "var(--bg)", border: "1px solid rgba(201,150,58,0.25)" }}>
+                  <p className="font-display italic" style={{ color: "var(--gold)", fontSize: "2.5rem", lineHeight: 1 }}>{p.n}</p>
+                  <h3 className="font-display mt-6" style={{ color: "var(--cream)", fontSize: "1.5rem" }}>{p.title}</h3>
+                  <p className="mt-4 leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.8 }}>{p.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HSE CULTURE */}
+      <section id="hse" className="section-pad" style={{ background: "var(--bg)" }}>
+        <div className="container-x">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+            <Reveal>
+              <p className="eyebrow" style={{ color: "var(--gold)" }}>Health, Safety & Environment</p>
+              <h2 className="font-display mt-5" style={{ fontSize: "clamp(2.25rem, 4.5vw, 3.5rem)", color: "var(--cream)", lineHeight: 1.1 }}>
+                Safety Is <em className="italic" style={{ color: "var(--gold-light)" }}>Our Culture</em>
+              </h2>
+              <p className="mt-8 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.85 }}>
+                Our HSE culture meets the toughest global best-practice standards — a set of attitudes, beliefs and values
+                that shape how we approach health, safety and the environment. It allows us to manage competing objectives
+                without compromise, safeguarding employees, clients, suppliers and the communities we serve.
+              </p>
+              <p className="mt-5 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.85 }}>
+                We conduct monthly Internal Audits to objectively review our systems and test implementation effectiveness —
+                proving, every month, that <span style={{ color: "var(--gold-light)" }}>Safety Is Our Culture</span>.
+              </p>
+            </Reveal>
+            <Reveal delay={150}>
+              <div className="space-y-4">
+                {[
+                  { code: "ISO 22000:2018", label: "Food Safety Management System" },
+                  { code: "ISO 9001:2015", label: "Quality Management System" },
+                  { code: "HACCP", label: "Hazard Analysis Critical Control Points" },
+                ].map((s) => (
+                  <div key={s.code} className="p-6 flex items-baseline justify-between gap-6" style={{ background: "var(--cocoa)", border: "1px solid rgba(201,150,58,0.3)" }}>
+                    <div>
+                      <p className="font-display italic" style={{ color: "var(--gold-light)", fontSize: "1.5rem" }}>{s.code}</p>
+                      <p className="text-sm mt-1" style={{ color: "var(--cream)", opacity: 0.78 }}>{s.label}</p>
+                    </div>
+                    <Check size={20} style={{ color: "var(--gold)" }} />
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       {/* CREDENTIALS */}
       <section id="credentials" className="section-pad" style={{ background: "var(--cocoa)" }}>
         <div className="container-x">
@@ -306,6 +405,28 @@ function HomePage() {
               />
               <button type="submit" className="btn-gold">Request Quote</button>
             </form>
+
+            <div className="mt-20 grid sm:grid-cols-3 gap-8 text-left max-w-3xl mx-auto pt-12" style={{ borderTop: "1px solid rgba(240,232,192,0.2)" }}>
+              <div>
+                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Registered Office</p>
+                <p className="mt-4 leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.9 }}>
+                  Plot No.362 Makenya Street<br/>Regent Estate, Mikocheni<br/>P.O. Box 25187<br/>Dar es Salaam, Tanzania
+                </p>
+              </div>
+              <div>
+                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Phone</p>
+                <p className="mt-4 leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.9 }}>
+                  +255 (0) 764 512254<br/>+255 (0) 784 447335
+                </p>
+              </div>
+              <div>
+                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Email & Web</p>
+                <p className="mt-4 leading-relaxed text-sm break-words" style={{ color: "var(--cream)", opacity: 0.9 }}>
+                  abbys.caterers@gmail.com<br/>orders@abbys.co.tz<br/>
+                  <span style={{ color: "var(--gold-light)" }}>www.abbys.co.tz</span>
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
