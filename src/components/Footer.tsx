@@ -37,16 +37,16 @@ export function Footer() {
             <h4 className="eyebrow mb-5" style={{ color: "var(--gold-light)" }}>Contact</h4>
             <ul className="space-y-3 opacity-80">
               <li className="flex items-start gap-2">
-                <MapPin size={14} className="mt-1" style={{ color: "var(--gold)" }} />
-                <span>Dar es Salaam, Tanzania</span>
+                <MapPin size={14} className="mt-1 flex-shrink-0" style={{ color: "var(--gold)" }} />
+                <span>Plot No.362 Makenya Street, Regent Estate, Mikocheni · P.O. Box 25187, Dar es Salaam, Tanzania</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone size={14} style={{ color: "var(--gold)" }} />
-                <span>+255 000 000 000</span>
+              <li className="flex items-start gap-2">
+                <Phone size={14} className="mt-1 flex-shrink-0" style={{ color: "var(--gold)" }} />
+                <span>+255 (0) 764 512254<br/>+255 (0) 784 447335</span>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail size={14} style={{ color: "var(--gold)" }} />
-                <span>hello@abbyscaterers.co.tz</span>
+              <li className="flex items-start gap-2">
+                <Mail size={14} className="mt-1 flex-shrink-0" style={{ color: "var(--gold)" }} />
+                <span>abbys.caterers@gmail.com<br/>orders@abbys.co.tz</span>
               </li>
             </ul>
           </div>
