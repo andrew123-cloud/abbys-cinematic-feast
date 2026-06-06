@@ -351,7 +351,8 @@ function HomePage() {
         </div>
       </section>
 
-
+      {/* CREDENTIALS */}
+      <section id="credentials" className="section-pad" style={{ background: "var(--cocoa)" }}>
         <div className="container-x">
           <Reveal>
             <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Business Credentials</p>
