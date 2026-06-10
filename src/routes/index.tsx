@@ -1,19 +1,27 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ChevronDown, ChefHat, GraduationCap, Building2, Truck, Check } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ChefHat, GraduationCap, Building2, Truck, Check } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Reveal } from "@/components/Reveal";
+import { LitTitle } from "@/components/LitTitle";
+import { RevealLine } from "@/components/RevealLine";
+import { Parallax } from "@/components/Parallax";
 import heroBg from "@/assets/hero-bg.jpg";
 import introDish from "@/assets/intro-dish.jpg";
 import serviceWeddings from "@/assets/service-weddings.jpg";
 import serviceCorporate from "@/assets/service-corporate.jpg";
 import servicePrivate from "@/assets/service-private.jpg";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Abby's Legendary Caterers — Best Food Always, Anywhere, Anyhow" },
-      { name: "description", content: "Tanzania's premier catering company. ISO 22000 & ISO 9001 certified. Corporate, industrial, weddings, facility management & logistics." },
+      { name: "description", content: "Tanzania's premier ISO-certified catering company. Corporate, industrial, weddings, facility management and logistics. Est. 7+ years." },
       { property: "og:title", content: "Abby's Legendary Caterers Limited" },
-      { property: "og:description", content: "Premium catering, facility management, mentorship and logistics across Tanzania." },
+      { property: "og:description", content: "Best Food Always — anywhere, anyhow. ISO 22000 & ISO 9001 certified. Dar es Salaam, Tanzania." },
     ],
   }),
   component: HomePage,
@@ -24,123 +32,133 @@ const services = [
     icon: ChefHat,
     img: serviceWeddings,
     title: "Catering Services",
-    desc: "From intimate gatherings of 10 to industrial-scale events of 5,000+. Conferences, summits, weddings, banquets, staff catering and concession catering — crafted with HACCP precision.",
+    desc: "From intimate gatherings of 10 to industrial-scale events of 5,000+. Corporate, weddings, community and concession catering — crafted with HACCP precision.",
   },
   {
     icon: GraduationCap,
     img: servicePrivate,
     title: "Mentorship Program",
-    desc: "We recruit, train and mentor aspiring chefs, waiters, mixologists and baristas. Theoretical learning meets real-world practice — culinary arts, operations, branding and compliance.",
+    desc: "Culinary arts training, business planning and menu development for aspiring hospitality professionals. ICA member-accredited programme.",
   },
   {
     icon: Building2,
     img: serviceCorporate,
     title: "Facility Management",
-    desc: "Technical service management, deep cleaning, HVAC, access control, grounds, waste management, pest control — engineered around ISO 9001:2015 quality standards.",
+    desc: "Technical services, deep cleaning, HVAC, access control, grounds and pest control — engineered around ISO 9001:2015 quality standards.",
   },
   {
     icon: Truck,
     img: introDish,
     title: "Logistics Solutions",
-    desc: "Our owned fleet of trucks and vans transports dry goods, cleaning materials and frozen food. Integrated supply chain meets ISO 22000:2018 food safety requirements.",
+    desc: "Our own fleet of trucks and vans handles the full supply chain — product selection, storage, packaging and transportation. ISO 22000:2018 compliant.",
   },
 ];
 
-const values = [
-  "Quality & delicious food",
-  "Exemplary services",
-  "Consistency & professionalism",
-  "Passionate teamwork",
-  "Friendly customer service",
-  "Uniqueness",
-  "Positivity",
-  "Continuous learning",
-  "Highest standards",
-  "Customer satisfaction",
-  "Profitable growth",
+const stats = [
+  { n: "7+",    label: "Years in Tanzania" },
+  { n: "5,000+",label: "Guests per event" },
+  { n: "4",     label: "Service Pillars" },
+  { n: "2",     label: "ISO Certifications" },
 ];
 
-const credentials = [
-  "Certificate of Incorporation",
-  "Business Licenses",
-  "TIN Certificate",
-  "Tax Clearance",
-  "VAT Registration",
-  "TBS Premises Registration",
-  "OSHA Workplace Registration",
-  "Workers Compensation Fund",
-  "LATRA Certificate",
-  "NSSF Certificate",
-  "ISO 22000:2018 — Food Safety",
-  "ISO 9001:2015 — Quality Management",
+const isoItems = [
+  { code: "ISO 22000:2018", label: "Food Safety Management" },
+  { code: "ISO 9001:2015",  label: "Quality Management" },
+  { code: "HACCP",          label: "Hazard Analysis System" },
 ];
 
 function HomePage() {
+  const heroRef   = useRef<HTMLDivElement>(null);
+  const hEls      = useRef<HTMLElement[]>([]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const els = heroRef.current?.querySelectorAll<HTMLElement>(".h-el");
+    if (!els || els.length === 0) return;
+
+    gsap.set(els, { opacity: 0, y: 30 });
+    gsap.to(els, {
+      opacity: 1, y: 0,
+      duration: 1.15,
+      stagger: 0.17,
+      ease: "power3.out",
+      delay: 0.35,
+    });
+  }, []);
+
   return (
     <div id="top">
-      {/* HERO */}
+      {/* ── HERO ─────────────────────────────────────────────── */}
       <section
+        ref={heroRef}
         className="relative h-screen min-h-[680px] w-full overflow-hidden flex items-center justify-center grain"
-        style={{ background: "var(--bg)" }}
+        style={{ background: "transparent" }}
       >
-        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-25" />
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 0%, var(--bg) 80%)" }} />
+        <div className="absolute inset-0 overflow-hidden">
+          <Parallax speed={10}>
+            <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
+          </Parallax>
+        </div>
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(10,9,8,0.55) 0%, transparent 40%, rgba(10,9,8,0.75) 100%)" }} />
         <div className="candle-glow" />
+        <span className="hero-corner hc-tl" /><span className="hero-corner hc-tr" />
+        <span className="hero-corner hc-bl" /><span className="hero-corner hc-br" />
 
         <div className="relative z-10 text-center px-6 max-w-5xl">
-          <Reveal>
-            <p className="eyebrow" style={{ color: "var(--gold)" }}>Tanzania · Est. 7+ Years</p>
-          </Reveal>
-          <Reveal delay={120}>
-            <h1
-              className="font-display italic leading-[0.9] mt-6"
-              style={{ color: "var(--cream)", fontSize: "clamp(3rem, 9vw, 8rem)", fontWeight: 500 }}
-            >
-              Abby&rsquo;s Legendary<br/>Caterers
-            </h1>
-          </Reveal>
-          <Reveal delay={240}>
-            <p
-              className="mt-8 italic"
-              style={{ color: "var(--cream)", fontFamily: "var(--font-display)", fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)", opacity: 0.9 }}
-            >
-              Best Food Always — anywhere, anyhow.
-            </p>
-          </Reveal>
-          <Reveal delay={360}>
-            <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#contact" className="btn-gold">Request a Quote</a>
-              <a href="#services" className="btn-ghost-cream">Our Services</a>
-            </div>
-          </Reveal>
+          <div className="h-el flex items-center justify-center gap-4 mb-4">
+            <span className="line-dec" style={{ width: 40 }} />
+            <p className="eyebrow" style={{ color: "var(--gold)" }}>Dar es Salaam, Tanzania · Est. 7+ Years</p>
+            <span className="line-dec-r" style={{ width: 40 }} />
+          </div>
+          <h1
+            className="h-el font-display italic leading-[0.9] mt-4"
+            style={{ color: "var(--cream)", fontSize: "clamp(3rem, 9vw, 8rem)", fontWeight: 400 }}
+          >
+            Abby&rsquo;s Legendary<br />Caterers
+          </h1>
+          <p
+            className="h-el mt-6 italic"
+            style={{ color: "var(--cream)", fontFamily: "var(--font-display)", fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)", opacity: 0.85 }}
+          >
+            Best Food Always — anywhere, anyhow.
+          </p>
+          <div className="h-el mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/contact" className="btn-gold" style={{ textDecoration: "none" }}>Get a Quote</Link>
+            <Link to="/services" className="btn-ghost-cream" style={{ textDecoration: "none" }}>Our Services</Link>
+          </div>
         </div>
 
-        <a href="#about" className="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-hint" style={{ color: "var(--gold-light)" }}>
-          <ChevronDown size={26} />
-        </a>
+        {/* Cinematic scroll indicator */}
+        <div className="h-el absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
+          <span className="eyebrow" style={{ writingMode: "vertical-rl", fontSize: "8px", letterSpacing: "0.35em", color: "rgba(201,168,76,0.55)" }}>Scroll</span>
+          <div className="relative overflow-hidden" style={{ width: 1, height: 56, background: "rgba(201,168,76,0.12)" }}>
+            <div className="si-line absolute inset-0" style={{ background: "var(--gold)" }} />
+          </div>
+        </div>
       </section>
 
-      {/* ABOUT */}
-      <section id="about" className="section-pad relative" style={{ background: "var(--bg)" }}>
+      {/* ── ABOUT PREVIEW ────────────────────────────────────── */}
+      <section id="about" className="section-pad relative" style={{ background: "transparent" }}>
         <div className="container-x">
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-            <Reveal>
+            <Reveal from="left">
               <p className="eyebrow" style={{ color: "var(--gold)" }}>About Us</p>
-              <h2 className="font-display mt-5" style={{ fontSize: "clamp(2.25rem, 4.5vw, 3.75rem)", color: "var(--cream)", lineHeight: 1.1 }}>
-                A renowned name in <em className="italic" style={{ color: "var(--gold-light)" }}>Tanzanian</em> catering
-              </h2>
-              <p className="mt-8 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.85 }}>
+              <LitTitle as="h2" className="font-display mt-5" style={{ fontSize: "clamp(2.25rem, 4.5vw, 3.75rem)", lineHeight: 1.1 }}>
+                A renowned name in <em className="italic">Tanzanian</em> catering
+              </LitTitle>
+              <RevealLine className="line-dec" style={{ width: 56, display: "block", marginTop: "1.5rem", marginBottom: "1.5rem" }} delay={200} />
+              <p className="mt-2 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.85 }}>
                 For more than seven years, Abby&rsquo;s Legendary Caterers Limited has delivered
                 high-end catering to esteemed customers across Tanzania — corporate events,
-                industrial-scale catering, community gatherings, concession catering, and every
-                corporate social event in between.
+                industrial-scale catering, community gatherings and every corporate social event in between.
               </p>
               <p className="mt-5 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.85 }}>
-                Our end-to-end approach to food safety governs menu design, raw materials,
-                preparation and delivery. We apply the internationally recognised{" "}
+                Our end-to-end approach to food safety applies from menu design through to delivery.
+                We apply the internationally recognised{" "}
                 <span style={{ color: "var(--gold-light)" }}>HACCP</span> system, verified by our
-                fully integrated <span style={{ color: "var(--gold-light)" }}>ISO 22000:2018</span>{" "}
-                and <span style={{ color: "var(--gold-light)" }}>ISO 9001:2015</span> certification.
+                fully integrated{" "}
+                <span style={{ color: "var(--gold-light)" }}>ISO 22000:2018</span> and{" "}
+                <span style={{ color: "var(--gold-light)" }}>ISO 9001:2015</span> certification.
               </p>
               <blockquote
                 className="mt-10 pl-6 italic font-display"
@@ -153,276 +171,161 @@ function HomePage() {
               >
                 &ldquo;Best Food Always — anywhere, anyhow.&rdquo;
               </blockquote>
+              <div className="mt-10">
+                <Link to="/about" className="btn-ghost-cream" style={{ textDecoration: "none" }}>
+                  Our Story &amp; Values
+                </Link>
+              </div>
             </Reveal>
-            <Reveal delay={150}>
-              <div className="aspect-[4/5] overflow-hidden relative" style={{ boxShadow: "0 30px 80px -20px rgba(0,0,0,0.6), inset 0 0 80px rgba(201,150,58,0.15)" }}>
+            <Reveal from="right" delay={130}>
+              <div
+                className="img-w aspect-[4/5]"
+                style={{ boxShadow: "0 30px 80px -20px rgba(0,0,0,0.6), inset 0 0 80px rgba(201,168,76,0.15)" }}
+              >
                 <img src={introDish} alt="Abby's signature plating" className="w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 60%, rgba(26,14,6,0.6) 100%)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 60%, rgba(10,9,8,0.6) 100%)" }} />
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section id="services" className="section-pad diag-lines relative" style={{ background: "var(--cocoa)" }}>
+      {/* ── STATS STRIP ─────────────────────────────────────── */}
+      <section className="py-16" style={{ background: "rgba(10,9,8,0.5)", borderTop: "1px solid rgba(201,168,76,0.12)", borderBottom: "1px solid rgba(201,168,76,0.12)" }}>
         <div className="container-x">
-          <Reveal>
-            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Brand & Services</p>
-            <h2 className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", color: "var(--cream)", lineHeight: 1.1 }}>
-              What <em className="italic" style={{ color: "var(--gold-light)" }}>We Do</em>
-            </h2>
-            <span className="gold-rule mx-auto mt-8" />
-            <p className="text-center mt-8 max-w-2xl mx-auto italic font-display" style={{ color: "var(--cream)", opacity: 0.8, fontSize: "1.15rem" }}>
-              Catering Services · Facilities Management · Mentorship · Logistics.
-            </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {stats.map((s, i) => (
+              <Reveal key={s.label} delay={i * 80} from="up">
+                <p className="stat-n">{s.n}</p>
+                <p className="eyebrow mt-3" style={{ color: "rgba(232,220,200,0.6)", fontSize: "0.65rem" }}>{s.label}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICES OVERVIEW ────────────────────────────────── */}
+      <section id="services" className="section-pad relative" style={{ background: "transparent" }}>
+        <div className="container-x">
+          <Reveal from="up">
+            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>What We Offer</p>
+            <LitTitle as="h2" className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", lineHeight: 1.1 }}>
+              Our Services
+            </LitTitle>
+            <RevealLine className="line-dec" style={{ width: 64, display: "block", margin: "2rem auto 0" }} delay={200} />
           </Reveal>
 
-          <div className="grid md:grid-cols-2 gap-8 mt-20">
+          <div className="grid md:grid-cols-2 gap-6 mt-16">
             {services.map((s, i) => (
-              <Reveal key={s.title} delay={i * 100}>
-                <article className="menu-card group h-full" style={{ background: "var(--bg)", border: "1px solid var(--gold)" }}>
-                  <div className="aspect-[16/10] overflow-hidden relative">
-                    <img src={s.img} alt={s.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80" />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(26,14,6,0.9) 100%)" }} />
-                    <s.icon size={28} className="absolute bottom-5 left-7" style={{ color: "var(--gold-light)" }} />
+              <Reveal key={s.title} delay={i * 90} from="up" distance={26}>
+                <article className="svc-card h-full">
+                  <div className="img-w aspect-[16/9]">
+                    <img src={s.img} alt={s.title} loading="lazy" style={{ opacity: 0.75 }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(10,9,8,0.88) 100%)" }} />
+                    <s.icon size={24} className="absolute bottom-5 left-6" style={{ color: "var(--gold)" }} />
                   </div>
                   <div className="p-8">
-                    <h3 className="font-display italic text-3xl" style={{ color: "var(--cream)" }}>{s.title}</h3>
-                    <p className="mt-4 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.78 }}>{s.desc}</p>
+                    <h3 className="font-display italic" style={{ color: "var(--cream)", fontSize: "1.55rem" }}>{s.title}</h3>
+                    <span className="gold-rule my-4" />
+                    <p className="leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.72 }}>{s.desc}</p>
                   </div>
                 </article>
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* VISION / MISSION */}
-      <section id="vision" className="section-pad" style={{ background: "var(--bg)" }}>
-        <div className="container-x">
-          <Reveal>
-            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Our Objectives</p>
-            <h2 className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", color: "var(--cream)", lineHeight: 1.1 }}>
-              Vision, Mission &amp; <em className="italic" style={{ color: "var(--gold-light)" }}>Values</em>
-            </h2>
-            <span className="gold-rule mx-auto mt-8" />
-          </Reveal>
-
-          <div className="grid md:grid-cols-2 gap-10 mt-20">
-            <Reveal>
-              <div className="p-10 h-full" style={{ background: "var(--cocoa)", border: "1px solid rgba(201,150,58,0.3)" }}>
-                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Our Vision</p>
-                <p className="font-display italic mt-5" style={{ color: "var(--cream)", fontSize: "1.6rem", lineHeight: 1.4 }}>
-                  To provide top-notch catering and related services with strict compliance to national and international standards.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={120}>
-              <div className="p-10 h-full" style={{ background: "var(--cocoa)", border: "1px solid rgba(201,150,58,0.3)" }}>
-                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Our Mission</p>
-                <p className="font-display italic mt-5" style={{ color: "var(--cream)", fontSize: "1.6rem", lineHeight: 1.4 }}>
-                  To deliver impeccable, unique and personalised experiences that exceed expectations and build long-term loyal relationships.
-                </p>
-              </div>
-            </Reveal>
-          </div>
-
-          <Reveal delay={200}>
-            <div className="mt-16">
-              <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Core Values</p>
-              <div className="mt-10 flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-                {values.map((v) => (
-                  <span
-                    key={v}
-                    className="px-5 py-2.5 text-sm"
-                    style={{
-                      border: "1px solid rgba(201,150,58,0.4)",
-                      color: "var(--cream)",
-                      fontFamily: "var(--font-nav)",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    {v}
-                  </span>
-                ))}
-              </div>
+          <Reveal from="up" delay={200}>
+            <div className="mt-14 text-center">
+              <Link to="/services" className="btn-gold" style={{ textDecoration: "none" }}>
+                Explore All Services
+              </Link>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* OUR STRENGTH */}
-      <section id="strength" className="section-pad" style={{ background: "var(--bg)" }}>
+      {/* ── ISO CERTIFICATIONS ────────────────────────────────── */}
+      <section className="section-pad" style={{ background: "rgba(10,9,8,0.5)" }}>
         <div className="container-x">
-          <Reveal>
-            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Our Strength</p>
-            <h2 className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", color: "var(--cream)", lineHeight: 1.1 }}>
-              Our People, <em className="italic" style={{ color: "var(--gold-light)" }}>Our Strength</em>
-            </h2>
-            <span className="gold-rule mx-auto mt-8" />
+          <Reveal from="up">
+            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Safety &amp; Quality</p>
+            <LitTitle as="h2" className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 4vw, 3.5rem)", lineHeight: 1.1 }}>
+              Safety Is Our Culture
+            </LitTitle>
+            <div className="hr-gold max-w-xs mx-auto mt-8" />
           </Reveal>
 
-          <div className="grid md:grid-cols-2 gap-10 mt-20 max-w-5xl mx-auto">
-            {[
-              { eyebrow: "Our Employees", title: "The hands behind every plate", body: "Our people contribute at every level of operations and are rewarded according to their performance and team achievement. Directors and management are accomplished entrepreneurs, business experts and chefs with extensive experience across hotels, fine dining and industrial sites — supported by qualified technicians in plumbing, electrical, civil, mechanical and maintenance disciplines." },
-              { eyebrow: "Management Philosophy", title: "Competence at every level", body: "We ensure a high level of technical competence and accountability across the organisation. Our fully Integrated Management System — ISO 22000:2018 and ISO 9001:2015 — streamlines operations while enhancing customer satisfaction and sustainability." },
-              { eyebrow: "Culinary Experience", title: "Unique. Personalised. Engaged.", body: "Our culinary experiences are crafted to allow customers to fully engage — from menu design to the final plate. Senior chefs deliver exceptional experiences while mentoring the next generation of culinary talent." },
-              { eyebrow: "High-Quality Produce", title: "Sourced with intention", body: "We are meticulous about sourcing produce, partnering only with verified, reputable suppliers. Quality control is monitored at every step of our operations — from raw material to delivery." },
-            ].map((c, i) => (
-              <Reveal key={c.title} delay={i * 100}>
-                <div className="p-10 h-full" style={{ background: "var(--cocoa)", border: "1px solid rgba(201,150,58,0.25)" }}>
-                  <p className="eyebrow" style={{ color: "var(--gold-light)" }}>{c.eyebrow}</p>
-                  <h3 className="font-display italic mt-4" style={{ color: "var(--cream)", fontSize: "1.75rem", lineHeight: 1.2 }}>{c.title}</h3>
-                  <p className="mt-5 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.82 }}>{c.body}</p>
+          <div className="grid md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto">
+            {isoItems.map((item, i) => (
+              <Reveal key={item.code} delay={i * 100} from="up" distance={26}>
+                <div className="cred-badge p-8 text-center">
+                  <p className="font-display italic" style={{ color: "var(--gold)", fontSize: "2rem", lineHeight: 1 }}>{item.code}</p>
+                  <p className="text-sm mt-3" style={{ color: "var(--cream)", opacity: 0.72 }}>{item.label}</p>
+                  <Check size={16} className="mx-auto mt-4" style={{ color: "var(--gold)", opacity: 0.7 }} />
                 </div>
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* GUIDING PRINCIPLES */}
-      <section id="principles" className="section-pad diag-lines" style={{ background: "var(--cocoa)" }}>
-        <div className="container-x">
-          <Reveal>
-            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Our Guiding Principles</p>
-            <h2 className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", color: "var(--cream)", lineHeight: 1.1 }}>
-              How We <em className="italic" style={{ color: "var(--gold-light)" }}>Operate</em>
-            </h2>
-            <span className="gold-rule mx-auto mt-8" />
+          <Reveal from="up" delay={100}>
+            <div className="flex flex-wrap justify-center gap-3 mt-10">
+              {["ISO 22000:2018","ISO 9001:2015","HACCP","ICA Member","LATRA Certified"].map((b) => (
+                <span key={b} className="iso-pill">{b}</span>
+              ))}
+            </div>
           </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-8 mt-20">
-            {[
-              { n: "01", title: "Consistent Delivery", body: "Long-term catering solutions that fulfil the needs of our clients and their workforce. We earn loyalty by consistently demonstrating quality, service, value and innovation — relentlessly driving to remain affordable." },
-              { n: "02", title: "Developing Our People", body: "We invest in our personnel to ensure the continuing success of the business. Our training procedures equip every team member with the understanding to conform to our Management Systems and Policy Statements." },
-              { n: "03", title: "Profitable Growth", body: "Disciplined, sustainable, environmentally responsible growth — underpinned by strong management. Important for long-term success of the business and the communities we serve." },
-            ].map((p, i) => (
-              <Reveal key={p.n} delay={i * 120}>
-                <div className="p-8 h-full" style={{ background: "var(--bg)", border: "1px solid rgba(201,150,58,0.25)" }}>
-                  <p className="font-display italic" style={{ color: "var(--gold)", fontSize: "2.5rem", lineHeight: 1 }}>{p.n}</p>
-                  <h3 className="font-display mt-6" style={{ color: "var(--cream)", fontSize: "1.5rem" }}>{p.title}</h3>
-                  <p className="mt-4 leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.8 }}>{p.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* HSE CULTURE */}
-      <section id="hse" className="section-pad" style={{ background: "var(--bg)" }}>
-        <div className="container-x">
-          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-            <Reveal>
-              <p className="eyebrow" style={{ color: "var(--gold)" }}>Health, Safety & Environment</p>
-              <h2 className="font-display mt-5" style={{ fontSize: "clamp(2.25rem, 4.5vw, 3.5rem)", color: "var(--cream)", lineHeight: 1.1 }}>
-                Safety Is <em className="italic" style={{ color: "var(--gold-light)" }}>Our Culture</em>
-              </h2>
-              <p className="mt-8 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.85 }}>
-                Our HSE culture meets the toughest global best-practice standards — a set of attitudes, beliefs and values
-                that shape how we approach health, safety and the environment. It allows us to manage competing objectives
-                without compromise, safeguarding employees, clients, suppliers and the communities we serve.
-              </p>
-              <p className="mt-5 leading-relaxed" style={{ color: "var(--cream)", opacity: 0.85 }}>
-                We conduct monthly Internal Audits to objectively review our systems and test implementation effectiveness —
-                proving, every month, that <span style={{ color: "var(--gold-light)" }}>Safety Is Our Culture</span>.
-              </p>
-            </Reveal>
-            <Reveal delay={150}>
-              <div className="space-y-4">
-                {[
-                  { code: "ISO 22000:2018", label: "Food Safety Management System" },
-                  { code: "ISO 9001:2015", label: "Quality Management System" },
-                  { code: "HACCP", label: "Hazard Analysis Critical Control Points" },
-                ].map((s) => (
-                  <div key={s.code} className="p-6 flex items-baseline justify-between gap-6" style={{ background: "var(--cocoa)", border: "1px solid rgba(201,150,58,0.3)" }}>
-                    <div>
-                      <p className="font-display italic" style={{ color: "var(--gold-light)", fontSize: "1.5rem" }}>{s.code}</p>
-                      <p className="text-sm mt-1" style={{ color: "var(--cream)", opacity: 0.78 }}>{s.label}</p>
-                    </div>
-                    <Check size={20} style={{ color: "var(--gold)" }} />
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* CREDENTIALS */}
-      <section id="credentials" className="section-pad" style={{ background: "var(--cocoa)" }}>
-        <div className="container-x">
-          <Reveal>
-            <p className="eyebrow text-center" style={{ color: "var(--gold)" }}>Business Credentials</p>
-            <h2 className="font-display text-center mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", color: "var(--cream)", lineHeight: 1.1 }}>
-              Fully <em className="italic" style={{ color: "var(--gold-light)" }}>Certified</em>
-            </h2>
-            <span className="gold-rule mx-auto mt-8" />
-          </Reveal>
-
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-5 mt-16 max-w-5xl mx-auto">
-            {credentials.map((c, i) => (
-              <Reveal key={c} delay={i * 40}>
-                <div className="flex items-start gap-3 py-3" style={{ borderBottom: "1px solid rgba(201,150,58,0.18)" }}>
-                  <Check size={16} className="mt-1 flex-shrink-0" style={{ color: "var(--gold)" }} />
-                  <span style={{ color: "var(--cream)", opacity: 0.9 }}>{c}</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section id="contact" className="section-pad relative overflow-hidden" style={{ background: "var(--mid-brown)" }}>
+      {/* ── CTA ──────────────────────────────────────────────── */}
+      <section className="section-pad relative overflow-hidden" style={{ background: "rgba(17,16,24,0.65)" }}>
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          className="glow-orb pointer-events-none"
           style={{
+            left: "50%", top: "50%", transform: "translate(-50%,-50%)",
             width: "60vw", height: "60vw", maxWidth: 700, maxHeight: 700,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(232,196,106,0.45) 0%, transparent 65%)",
-            filter: "blur(40px)",
+            background: "radial-gradient(circle, rgba(201,168,76,0.18) 0%, transparent 65%)",
           }}
         />
         <div className="container-x max-w-3xl text-center relative">
-          <Reveal>
-            <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Get in touch</p>
-            <h2 className="font-display italic mt-5" style={{ color: "var(--cream)", fontSize: "clamp(2.25rem, 5vw, 4rem)", lineHeight: 1.1 }}>
+          <Reveal from="up">
+            <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Get in Touch</p>
+            <LitTitle as="h2" className="font-display italic mt-5" style={{ fontSize: "clamp(2.25rem, 5vw, 4rem)", lineHeight: 1.1 }}>
               Plan your next event with Abby&rsquo;s
-            </h2>
-            <p className="mt-6" style={{ color: "var(--cream)", opacity: 0.9 }}>
+            </LitTitle>
+            <p className="mt-6 opacity-90" style={{ color: "var(--cream)" }}>
               From 10 to 5,000+ guests. Tell us about your event and our team will be in touch.
             </p>
-            <form className="mt-10 flex flex-col sm:flex-row gap-3 max-w-xl mx-auto" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                required
-                placeholder="your@email.com"
-                className="flex-1 px-5 py-4 bg-transparent border outline-none placeholder:opacity-60"
-                style={{ borderColor: "var(--cream)", color: "var(--cream)" }}
-              />
-              <button type="submit" className="btn-gold">Request Quote</button>
-            </form>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/contact" className="btn-gold" style={{ textDecoration: "none" }}>
+                Request a Quote
+              </Link>
+              <a
+                href="tel:+255764512254"
+                className="btn-ghost-cream"
+                style={{ textDecoration: "none" }}
+              >
+                +255 764 512254
+              </a>
+            </div>
 
-            <div className="mt-20 grid sm:grid-cols-3 gap-8 text-left max-w-3xl mx-auto pt-12" style={{ borderTop: "1px solid rgba(240,232,192,0.2)" }}>
+            <div className="mt-20 grid sm:grid-cols-3 gap-8 text-left max-w-3xl mx-auto pt-12" style={{ borderTop: "1px solid rgba(201,168,76,0.12)" }}>
               <div>
                 <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Registered Office</p>
-                <p className="mt-4 leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.9 }}>
-                  Plot No.362 Makenya Street<br/>Regent Estate, Mikocheni<br/>P.O. Box 25187<br/>Dar es Salaam, Tanzania
+                <p className="mt-4 leading-relaxed text-sm opacity-90" style={{ color: "var(--cream)" }}>
+                  Plot No.362 Makenya Street<br />Regent Estate, Mikocheni<br />P.O. Box 25187<br />Dar es Salaam, Tanzania
                 </p>
               </div>
               <div>
                 <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Phone</p>
-                <p className="mt-4 leading-relaxed text-sm" style={{ color: "var(--cream)", opacity: 0.9 }}>
-                  +255 (0) 764 512254<br/>+255 (0) 784 447335
+                <p className="mt-4 leading-relaxed text-sm opacity-90" style={{ color: "var(--cream)" }}>
+                  +255 764 512254<br />+255 784 447335
                 </p>
               </div>
               <div>
-                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Email & Web</p>
-                <p className="mt-4 leading-relaxed text-sm break-words" style={{ color: "var(--cream)", opacity: 0.9 }}>
-                  abbys.caterers@gmail.com<br/>orders@abbys.co.tz<br/>
+                <p className="eyebrow" style={{ color: "var(--gold-light)" }}>Email &amp; Web</p>
+                <p className="mt-4 leading-relaxed text-sm break-words opacity-90" style={{ color: "var(--cream)" }}>
+                  abbys.caterers@gmail.com<br />orders@abbys.co.tz<br />
                   <span style={{ color: "var(--gold-light)" }}>www.abbys.co.tz</span>
                 </p>
               </div>

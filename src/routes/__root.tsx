@@ -9,11 +9,16 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gsap } from "gsap";
+gsap.registerPlugin(ScrollTrigger);
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Cursor } from "@/components/Cursor";
+import { PageTransition } from "@/components/PageTransition";
 
 function NotFoundComponent() {
   return (
@@ -64,7 +69,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;500;700&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Montserrat:wght@200;300;400;500&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -80,6 +85,8 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <div id="c-dot" style={{ transform: "translate(-200px,-200px)" }} />
+        <div id="c-ring" style={{ transform: "translate(-200px,-200px)" }} />
         {children}
         <Scripts />
       </body>
@@ -93,10 +100,17 @@ function RootComponent() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    // Refresh positions after child component effects have created their ScrollTriggers.
+    // Using a small delay because React runs child effects before parent effects,
+    // so new page's ScrollTriggers are already registered by the time this runs.
+    const t = setTimeout(() => ScrollTrigger.refresh(), 120);
+    return () => clearTimeout(t);
   }, [location.pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Cursor />
+      <PageTransition />
       <Navbar />
       <main>
         <Outlet />
