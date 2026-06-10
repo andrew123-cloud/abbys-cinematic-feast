@@ -11,4 +11,8 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     server: { entry: "server" },
   },
+  // When self-hosting on Netlify, force Nitro on with the netlify preset so the
+  // build emits Netlify Functions + a publishable dist/ for the Netlify CDN.
+  // Inside Lovable's sandbox this override is ignored (Cloudflare is forced).
+  nitro: { preset: "netlify" },
 });
